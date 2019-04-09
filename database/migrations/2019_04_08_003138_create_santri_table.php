@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSantrisTable extends Migration
+class CreateSantriTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,17 @@ class CreateSantrisTable extends Migration
      */
     public function up()
     {
-        Schema::create('santris', function (Blueprint $table) {
+        Schema::create('santri', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('provinsi_id');
-            $table->string('name');
-            $table->string('email',30)->unique();
+            $table->unsignedInteger('id_provinsi');
+            $table->string('nama', 50);
+            $table->string('email', 30)->unique();
             $table->string('password');
             $table->boolean('gender');
-            $table->string('poto');
+            $table->string('poto')->nullable();
+            $table->text('alamat');
             $table->timestamps();
-            $table->foreign('provinsi_id')->references('id')->on('provinsis')->onDelete('cascade');
+            $table->foreign('id_provinsi')->references('id')->on('provinsi')->onDelete('cascade');
         });
     }
 
@@ -33,6 +34,6 @@ class CreateSantrisTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('santris');
+        Schema::dropIfExists('santri');
     }
 }
